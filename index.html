@@ -1,566 +1,666 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deeds Direct · Online Deeds Office</title>
-  <!-- Brevo required fonts & styles (kept exactly as provided) -->
-  <style>
-    @font-face {
-      font-display: block;
-      font-family: Roboto;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
-    }
-    @font-face {
-      font-display: fallback;
-      font-family: Roboto;
-      font-weight: 600;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
-    }
-    @font-face {
-      font-display: fallback;
-      font-family: Roboto;
-      font-weight: 700;
-      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
-    }
-    :where(.sib-form-message-panel) { display: none; }
-    :where(.sib-form-message-panel .sib-notification__icon) { width: 20px; height: 20px; }
-    #sib-container input:-ms-input-placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-    #sib-container input::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-    #sib-container textarea::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
-    #sib-container a { text-decoration: underline; color: #2BB2FC; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Direct Deeds · Online deeds office</title>
+    <!-- Font Awesome for icons (optional but nice) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Brevo form styles (head part) -->
+    <style>
+        @font-face {
+            font-display: block;
+            font-family: Roboto;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"),
+                 url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+        }
+        @font-face {
+            font-display: fallback;
+            font-family: Roboto;
+            font-weight: 600;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"),
+                 url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+        }
+        @font-face {
+            font-display: fallback;
+            font-family: Roboto;
+            font-weight: 700;
+            src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"),
+                 url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+        }
+        :where(.sib-form-message-panel) { display: none; }
+        :where(.sib-form-message-panel .sib-notification__icon) { width: 20px; height: 20px; }
+        #sib-container input:-ms-input-placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container input::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container textarea::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+        #sib-container a { text-decoration: underline; color: #2BB2FC; }
+    </style>
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    <!-- End Brevo head -->
 
-    /* ---------- GLOBAL & PAGE STYLES (deeds office theme) ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Roboto', 'Helvetica', sans-serif;
-      background: #eef2f6;
-      line-height: 1.5;
-      color: #1e293b;
-      padding: 2rem 1.5rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
+        body {
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            background-color: #F4F7FC;
+            color: #1A2A3A;
+            line-height: 1.5;
+        }
 
-    .deeds-page {
-      max-width: 1300px;
-      width: 100%;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 36px;
-      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      border: 1px solid #d9e2ef;
-    }
+        /* ----- GLOBAL ----- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
 
-    /* ----- HEADER (deeds office branding) ----- */
-    .deeds-header {
-      background: #0b1626;
-      padding: 1.5rem 2.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      border-bottom: 5px solid #c9a227;
-    }
+        /* ----- HEADER (same as reference) ----- */
+        .navbar {
+            background: #FFFFFF;
+            box-shadow: 0 2px 12px rgba(0, 20, 30, 0.06);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .logo-group {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    .logo-icon {
-      background: #c9a227;
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      font-weight: 700;
-      color: #0b1626;
-      box-shadow: 0 4px 12px rgba(201, 162, 39, 0.4);
-    }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .logo-text {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: white;
-    }
+        .logo-icon {
+            background: #1C3F3F;
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 24px;
+        }
 
-    .logo-text span {
-      color: #c9a227;
-      font-weight: 300;
-    }
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.2;
+            color: #1C3F3F;
+            letter-spacing: -0.3px;
+        }
 
-    .header-tagline {
-      font-size: 14px;
-      color: #9aa9bb;
-      border-left: 1px solid #334155;
-      padding-left: 18px;
-      margin-left: 6px;
-    }
+        .logo-text span {
+            display: block;
+            font-weight: 400;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #6A7E8C;
+            text-transform: uppercase;
+        }
 
-    /* ----- MAIN LAYOUT: two columns ----- */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      background: #ffffff;
-    }
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            font-weight: 500;
+            color: #2D4052;
+            font-size: 15px;
+        }
 
-    /* LEFT: image / illustration side */
-    .image-panel {
-      background: #f7f9fc;
-      padding: 2.5rem 2rem;
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid #e2e8f0;
-      position: relative;
-      background-image: radial-gradient(circle at 10% 20%, rgba(201, 162, 39, 0.03) 0%, transparent 30%),
-                        repeating-linear-gradient(45deg, #f1f5f9 0px, #f1f5f9 2px, #ffffff 2px, #ffffff 6px);
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
 
-    .static-image {
-      width: 100%;
-      border-radius: 24px;
-      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
-      border: 2px solid #ffffff;
-      object-fit: cover;
-      aspect-ratio: 16 / 11;
-      background: #d9e2ef;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4b5b6b;
-      font-size: 1.2rem;
-      font-weight: 500;
-      transition: all 0.15s;
-    }
+        .nav-links a:hover {
+            color: #1C3F3F;
+        }
 
-    /* Using a pure CSS illustration (since no actual image file) — house + deed */
-    .static-image {
-      background: linear-gradient(145deg, #0b1626 0%, #1a2a41 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      color: white;
-      text-align: center;
-      border: 3px solid #c9a227;
-    }
+        .btn-nav {
+            background: #1C3F3F;
+            color: white !important;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
 
-    .static-image .house-icon {
-      font-size: 5.5rem;
-      line-height: 1;
-      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
-      margin-bottom: 0.75rem;
-    }
+        .btn-nav:hover {
+            background: #123232;
+        }
 
-    .static-image .deed-icon {
-      font-size: 3.2rem;
-      margin-bottom: 0.5rem;
-      opacity: 0.9;
-    }
+        /* ----- HERO SECTION (mirrors reference but with deeds-office twist) ----- */
+        .hero {
+            padding: 60px 0 80px 0;
+            background: linear-gradient(145deg, #F0F5FA 0%, #E9F0F7 100%);
+        }
 
-    .static-image h4 {
-      font-size: 1.4rem;
-      font-weight: 500;
-      color: #c9a227;
-      letter-spacing: 1px;
-      margin-top: 0.5rem;
-    }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
 
-    .static-image p {
-      font-size: 0.9rem;
-      color: #b0c4de;
-      max-width: 260px;
-      margin-top: 0.4rem;
-    }
+        .hero-left {
+            position: relative;
+        }
 
-    .trust-indicators {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      background: #ffffffd8;
-      backdrop-filter: blur(2px);
-      padding: 1.5rem 1.8rem;
-      border-radius: 20px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
-    }
+        .hero-left .arch-image {
+            width: 100%;
+            max-width: 440px;
+            border-radius: 280px 280px 40px 40px;
+            overflow: hidden;
+            box-shadow: 0 30px 40px -15px rgba(0, 40, 60, 0.25);
+            background: #E57F3E; /* fallback */
+            aspect-ratio: 0.85 / 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
 
-    .trust-indicators .item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 500;
-      color: #1e2b3f;
-    }
+        .arch-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
 
-    .trust-indicators .item i {
-      font-style: normal;
-      font-size: 1.5rem;
-      width: 28px;
-      text-align: center;
-    }
+        /* placeholder for person – we use a subtle illustration / photo stand‑in */
+        .arch-image .person-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #E57F3E 0%, #C96B2E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF90;
+            font-size: 80px;
+            font-weight: 300;
+        }
 
-    .trust-indicators .item span {
-      font-size: 0.98rem;
-    }
+        .floating-card {
+            position: absolute;
+            bottom: 20px;
+            right: -20px;
+            background: white;
+            padding: 16px 22px;
+            border-radius: 24px;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            color: #1C3F3F;
+        }
 
-    /* RIGHT: registration form panel */
-    .form-panel {
-      padding: 2.5rem 2.5rem 2.5rem 2.5rem;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+        .floating-card i {
+            font-size: 28px;
+            color: #2BB2FC;
+        }
 
-    .form-panel h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0b1626;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.5px;
-    }
+        .hero-right h1 {
+            font-size: 62px;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: #1A2E3F;
+            margin-bottom: 24px;
+            font-family: 'Times New Roman', 'Georgia', serif;
+        }
 
-    .form-panel .subhead {
-      color: #4b5b6b;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-      border-left: 4px solid #c9a227;
-      padding-left: 1rem;
-      font-weight: 400;
-    }
+        .hero-right h1 .highlight {
+            color: #1C3F3F;
+            border-bottom: 6px solid #9CC6B0;
+            display: inline-block;
+            line-height: 1.2;
+        }
 
-    /* ---- Brevo form overrides (to fit our layout) ---- */
-    .sib-form {
-      text-align: left !important;
-      background-color: transparent !important;
-      padding: 0 !important;
-    }
+        .hero-sub {
+            font-size: 22px;
+            margin-bottom: 32px;
+            color: #2D4052;
+            font-weight: 400;
+            line-height: 1.4;
+        }
 
-    #sib-form-container {
-      max-width: 100% !important;
-    }
+        .hero-sub strong {
+            color: #1C3F3F;
+            font-weight: 700;
+        }
 
-    #sib-container {
-      max-width: 100% !important;
-      border: none !important;
-      background: transparent !important;
-      padding: 0 !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
-    }
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            margin-top: 28px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #2A4A4A;
+        }
 
-    #sib-form .entry__label {
-      font-weight: 600 !important;
-      color: #0b1626 !important;
-      font-size: 0.95rem !important;
-      margin-bottom: 8px !important;
-      display: block;
-    }
+        .trust-badges i {
+            color: #1C3F3F;
+            width: 22px;
+            margin-right: 6px;
+        }
 
-    #sib-form .input {
-      border: 1.5px solid #d0dae8 !important;
-      border-radius: 14px !important;
-      padding: 1rem 1.2rem !important;
-      font-size: 1rem !important;
-      background: #f9fcff !important;
-      transition: 0.15s;
-      width: 100%;
-    }
+        /* ----- HOMES SOLD CARDS (like reference) ----- */
+        .homes-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 40px;
+        }
 
-    #sib-form .input:focus {
-      border-color: #c9a227 !important;
-      outline: 3px solid rgba(201, 162, 39, 0.2) !important;
-      background: #ffffff !important;
-    }
+        .home-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 20, 20, 0.06);
+            transition: transform 0.2s ease;
+            position: relative;
+        }
 
-    #sib-form .sib-form-block__button {
-      background-color: #0b1626 !important;
-      color: white !important;
-      font-weight: 700 !important;
-      padding: 1rem 2rem !important;
-      border-radius: 50px !important;
-      font-size: 1.1rem !important;
-      letter-spacing: 0.5px;
-      transition: 0.15s;
-      border: 2px solid #c9a227 !important;
-      box-shadow: 0 8px 18px rgba(11, 22, 38, 0.25) !important;
-      width: auto !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 10px !important;
-      cursor: pointer;
-      margin-top: 0.5rem;
-    }
+        .home-card:hover {
+            transform: translateY(-4px);
+        }
 
-    #sib-form .sib-form-block__button:hover {
-      background-color: #1e2e44 !important;
-      transform: scale(1.02);
-      box-shadow: 0 12px 22px rgba(11, 22, 38, 0.3) !important;
-    }
+        .home-card .card-img {
+            height: 150px;
+            background: #B8CDE0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #3E5C6E;
+            font-size: 32px;
+            position: relative;
+        }
 
-    #sib-form .entry__specification {
-      color: #6b7b8c !important;
-      font-size: 0.8rem !important;
-      margin-top: 8px !important;
-      display: block;
-    }
+        /* Sold badge */
+        .badge-sold {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #1C3F3F;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 40px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-    /* hide error labels that are empty */
-    .entry__error--primary {
-      display: none;
-    }
+        .badge-sold i {
+            font-size: 12px;
+        }
 
-    /* Adjust Brevo error/success panels */
-    .sib-form-message-panel {
-      max-width: 100% !important;
-      margin-bottom: 1.5rem !important;
-      border-radius: 12px !important;
-      font-size: 0.95rem !important;
-    }
+        .home-card .card-info {
+            padding: 16px 16px 18px;
+        }
 
-    /* Add a custom small note */
-    .form-footer-note {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #6b7b8c;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+        .home-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A2E3F;
+            margin-bottom: 6px;
+        }
 
-    .form-footer-note .dot {
-      color: #c9a227;
-      font-weight: 700;
-    }
+        .home-card .location {
+            font-size: 14px;
+            color: #6A7E8C;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
 
-    /* ----- bottom bar (extra deed office feel) ----- */
-    .deeds-footer {
-      background: #f1f5f9;
-      padding: 1.2rem 2.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      font-size: 0.85rem;
-      color: #4b5b6b;
-      border-top: 1px solid #e2e8f0;
-      border-bottom: 4px solid #c9a227;
-    }
+        .location i {
+            font-size: 12px;
+            color: #1C3F3F;
+        }
 
-    .deeds-footer .badge-row {
-      display: flex;
-      gap: 20px;
-    }
+        /* ----- FORM SECTION (Brevo form embedded + styled) ----- */
+        .deeds-form-section {
+            padding: 70px 0 80px;
+            background: #FFFFFF;
+        }
 
-    /* RESPONSIVE */
-    @media (max-width: 950px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-      .image-panel {
-        border-right: none;
-        border-bottom: 1px solid #e2e8f0;
-        padding: 2rem;
-      }
-      .form-panel {
-        padding: 2rem;
-      }
-      .static-image {
-        aspect-ratio: 16/9;
-      }
-      .deeds-header {
-        padding: 1.2rem 1.8rem;
-      }
-      .logo-text {
-        font-size: 22px;
-      }
-      .header-tagline {
-        display: none;
-      }
-      .deeds-footer {
-        padding: 1rem 1.5rem;
-      }
-    }
+        .form-wrapper {
+            max-width: 560px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px -10px rgba(0, 40, 50, 0.15);
+            padding: 12px 0;
+        }
 
-    @media (max-width: 500px) {
-      body { padding: 0.75rem; }
-      .deeds-page { border-radius: 24px; }
-      .form-panel { padding: 1.5rem; }
-      .image-panel { padding: 1.5rem; }
-      .form-panel h2 { font-size: 1.6rem; }
-      .trust-indicators { padding: 1.2rem; }
-    }
-  </style>
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+        .form-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .form-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A2E3F;
+            letter-spacing: -0.5px;
+        }
+
+        .form-header p {
+            color: #4A5F6E;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        /* Override Brevo container default background etc to make it seamless */
+        .sib-form {
+            background-color: transparent !important;
+        }
+
+        #sib-container {
+            background-color: #FFFFFF !important;
+            border: 1px solid #DCE5EC !important;
+            border-radius: 24px !important;
+            max-width: 100% !important;
+            padding: 24px 20px !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.02);
+        }
+
+        .sib-form-block__button {
+            background-color: #1C3F3F !important;
+            border-radius: 40px !important;
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            padding: 16px 28px !important;
+            transition: background 0.2s !important;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sib-form-block__button:hover {
+            background-color: #123232 !important;
+        }
+
+        .entry__label {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+            color: #1A2E3F !important;
+        }
+
+        .entry__field input {
+            border-radius: 40px !important;
+            border: 1.5px solid #D0DDE8 !important;
+            padding: 16px 20px !important;
+            font-size: 16px !important;
+            background: #F9FCFE !important;
+        }
+
+        .entry__field input:focus {
+            border-color: #1C3F3F !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(28, 63, 63, 0.1);
+        }
+
+        .entry__specification {
+            color: #6A7E8C !important;
+            font-size: 13px !important;
+            margin-top: 6px;
+        }
+
+        /* adjust spacing inside Brevo */
+        .sib-input .form__entry {
+            padding: 0;
+        }
+
+        .form__label-row {
+            gap: 8px;
+        }
+
+        .sib-form-message-panel {
+            border-radius: 16px !important;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="deeds-page">
-  <!-- ========== HEADER ========== -->
-  <header class="deeds-header">
-    <div class="logo-group">
-      <div class="logo-icon">⚖️</div>
-      <div class="logo-text">DEEDS<span>DIRECT</span></div>
-    </div>
-    <div class="header-tagline">Online Deeds Office · Buyer–Seller Direct</div>
-  </header>
-
-  <!-- ========== MAIN 2-COLUMN LAYOUT ========== -->
-  <div class="main-grid">
-    <!-- LEFT: static image + trust -->
-    <div class="image-panel">
-      <!-- Static visual / illustration representing deeds office & home transfer -->
-      <div class="static-image">
-        <div class="house-icon">🏡</div>
-        <div class="deed-icon">📜⚖️</div>
-        <h4>DEEDS OFFICE</h4>
-        <p>Buyer and seller connect directly — no agents, no delays.</p>
-      </div>
-
-      <!-- trust indicators -->
-      <div class="trust-indicators">
-        <div class="item"><i>🔒</i> <span>Secure & POPIA compliant</span></div>
-        <div class="item"><i>⚡</i> <span>Direct buyer–seller matching</span></div>
-        <div class="item"><i>📄</i> <span>Digital deeds preparation</span></div>
-        <div class="item"><i>🏛️</i> <span>Deeds office ready documents</span></div>
-      </div>
-    </div>
-
-    <!-- RIGHT: Brevo registration form (account creation) -->
-    <div class="form-panel">
-      <h2>Create your account</h2>
-      <div class="subhead">Start your property transfer journey today</div>
-
-      <!-- ===== BREVO FORM – EXACTLY AS PROVIDED (with minor container adjustments) ===== -->
-      <div class="sib-form" style="text-align: center; background-color: transparent;">
-        <div id="sib-form-container" class="sib-form-container">
-          <!-- error panel (kept) -->
-          <div id="error-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:8px; max-width:100%;">
-            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
-                <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
-              </svg>
-              <span class="sib-form-message-panel__inner-text">
-                Your subscription could not be saved. Please try again.
-              </span>
+    <!-- ========== NAVBAR ========== -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo-area">
+                <div class="logo-icon"><i class="fas fa-home"></i></div>
+                <div class="logo-text">Direct Deeds <span>South Africa</span></div>
             </div>
-          </div>
-          <div></div>
-          <!-- success panel (kept) -->
-          <div id="success-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#085229; background-color:#e7faf0; border-color:#13ce66; border-radius:8px; max-width:100%;">
-            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
-                <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
-              </svg>
-              <span class="sib-form-message-panel__inner-text">
-                Your subscription has been successful.
-              </span>
-            </div>
-          </div>
-          <div></div>
-          <!-- main form container -->
-          <div id="sib-container" class="sib-container--large sib-container--vertical" style="max-width:100%; text-align:center; background-color:transparent; border-width:0; border-radius:0; direction:ltr; padding:0;">
-            <form id="sib-form" method="POST" action="https://055f7059.sibforms.com/serve/MUIFAKYs4zjVms-mx1J3qGR-VsR-ugiqF4T6B6OH9ASgSbjJyLrXRbzew1coSn6EeJciOrMjsJwr3QUp1brq0L2aYq5goDV6Joc0bQTJkwdXiCZlnmU6yzoNUe3Ftl15fEvhm4gcLQ0L9zF4dUANTZ93FsjA_t6uJVQzBKfDV84sC1TH0eTH2o9cvonDTNeAbzp5ulBI5JooN6sUWQ==" data-type="subscription">
 
-              <div style="padding: 4px 0;">
-                <div class="sib-input sib-form-block">
-                  <div class="form__entry entry_block">
-                    <div class="form__label-row ">
-                      <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:15px; font-weight:700; text-align:left; color:#0b1626;" for="EMAIL" data-required="*">Enter your email address to create your deeds office account</label>
-                      <div class="entry__field">
-                        <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="you@example.com" data-required="true" required />
-                      </div>
-                    </div>
-                    <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
-                    <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#6b7b8c; text-align: left; margin-top:6px;">
-                      Provide your email address to subscribe. For e.g abc@xyz.com
-                    </label>
-                  </div>
-                </div>
-              </div>
+            <nav class="nav-links">
+                <a href="#">Buy a Home</a>
+                <a href="#">How It Works</a>
+                <a href="#">About Us</a>
+                <a href="#">Resources</a>
+                <a href="#">Contact</a>
+            </nav>
 
-              <div style="padding: 8px 0 0 0;">
-                <div class="sib-form-block" style="text-align: left">
-                  <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#FFFFFF; background-color:#0b1626; border-width:0px; border-radius:50px;" form="sib-form" type="submit">
-                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style="width:20px; height:20px; margin-right:4px;">
-                      <path fill="currentColor" d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-                    </svg>
-                    CREATE ACCOUNT &nbsp;→
-                  </button>
-                </div>
-              </div>
-
-              <input type="text" name="email_address_check" value="" class="input--hidden">
-              <input type="hidden" name="locale" value="en">
-            </form>
-          </div>
+            <!-- Get Started button triggers the Brevo form / scrolls to it -->
+            <a href="#deeds-form" class="btn-nav" id="getStartedBtn">
+                Get Started <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
-      </div>
-      <!-- ===== END BREVO FORM ===== -->
+    </header>
 
-      <div class="form-footer-note">
-        <span>🔐 We respect your privacy.</span>
-        <span class="dot">•</span>
-        <span>No spam, ever.</span>
-        <span class="dot">•</span>
-        <span>Unsubscribe anytime.</span>
-      </div>
-    </div>
-  </div>
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <!-- left image + floating card -->
+            <div class="hero-left">
+                <div class="arch-image">
+                    <!-- Simulated person image (feel free to replace with real image) -->
+                    <div class="person-placeholder">
+                        <i class="fas fa-user-circle" style="font-size: 100px; opacity: 0.6;"></i>
+                    </div>
+                </div>
+                <div class="floating-card">
+                    <i class="fas fa-file-signature"></i> <span>Deed ready</span>
+                </div>
+            </div>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="deeds-footer">
-    <div>© 2025 DeedsDirect · Online Deeds Office for private property transfers.</div>
-    <div class="badge-row">
-      <span>🏛️ Deeds office ready</span>
-      <span>🤝 Direct buyer–seller</span>
-    </div>
-  </footer>
-</div>
+            <!-- right text & homes grid -->
+            <div class="hero-right">
+                <h1>Hundreds of <br><span class="highlight">homes sold</span></h1>
+                <p class="hero-sub">Buyers saved millions in <strong>Rands</strong> in commissions</p>
 
-<!-- ========== BREVO REQUIRED SCRIPTS (footer) ========== -->
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
-  window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
-  window.INVALID_DATE = "Please enter a valid date";
-  window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
-  window.translation = {
-    common: {
-      selectedList: '{quantity} list selected',
-      selectedLists: '{quantity} lists selected',
-      selectedOption: '{quantity} selected',
-      selectedOptions: '{quantity} selected',
-    }
-  };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
-<!-- End Brevo Form -->
+                <div class="trust-badges">
+                    <div><i class="fas fa-shield-alt"></i> Trusted & Secure</div>
+                    <div><i class="fas fa-flag"></i> Proudly South African</div>
+                    <div><i class="fas fa-leaf"></i> Smart. Simple. Savings.</div>
+                </div>
 
+                <!-- Homes sold cards (2x2 grid) -->
+                <div class="homes-grid">
+                    <!-- card 1 -->
+                    <div class="home-card">
+                        <div class="card-img" style="background: #D9E3ED;">
+                            <i class="fas fa-building" style="font-size: 48px; color: #7F9BB3;"></i>
+                            <div class="badge-sold"><i class="fas fa-check-circle"></i> SOLD</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Modern Heights</h3>
+                            <div class="location"><i class="fas fa-map-pin"></i> Sandton</div>
+                        </div>
+                    </div>
+                    <!-- card 2 -->
+                    <div class="home-card">
+                        <div class="card-img" style="background: #C2D9E8;">
+                            <i class="fas fa-umbrella-beach" style="font-size: 48px; color: #3E6F8C;"></i>
+                            <div class="badge-sold"><i class="fas fa-check-circle"></i> SOLD</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Lakeview Retreat</h3>
+                            <div class="location"><i class="fas fa-map-pin"></i> Pretoria East</div>
+                        </div>
+                    </div>
+                    <!-- card 3 -->
+                    <div class="home-card">
+                        <div class="card-img" style="background: #C1D2E0;">
+                            <i class="fas fa-city" style="font-size: 48px; color: #587A95;"></i>
+                            <div class="badge-sold"><i class="fas fa-check-circle"></i> SOLD</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Summit View</h3>
+                            <div class="location"><i class="fas fa-map-pin"></i> Stellenbosch</div>
+                        </div>
+                    </div>
+                    <!-- card 4 -->
+                    <div class="home-card">
+                        <div class="card-img" style="background: #B8CFE2;">
+                            <i class="fas fa-water" style="font-size: 48px; color: #2C607A;"></i>
+                            <div class="badge-sold"><i class="fas fa-check-circle"></i> SOLD</div>
+                        </div>
+                        <div class="card-info">
+                            <h3>Coastal Haven</h3>
+                            <div class="location"><i class="fas fa-map-pin"></i> Ballito</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== DEEDS FORM SECTION (Brevo form embedded) ========== -->
+    <section class="deeds-form-section" id="deeds-form">
+        <div class="container">
+            <div class="form-header">
+                <h2>Create your account</h2>
+                <p>Join hundreds of buyers & sellers – start your deed transfer today.</p>
+            </div>
+
+            <!-- Brevo form wrapper (exactly the provided code, with only minor container class) -->
+            <div class="form-wrapper">
+                <!-- Begin Brevo Form (original markup, no changes except outer div class) -->
+                <div class="sib-form" style="text-align: center; background-color: transparent; padding: 0;">
+                    <div id="sib-form-container" class="sib-form-container">
+                        <div id="error-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px; max-width:540px;">
+                            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                                    <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
+                                </svg>
+                                <span class="sib-form-message-panel__inner-text">
+                                    Your subscription could not be saved. Please try again.
+                                </span>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div id="success-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#085229; background-color:#e7faf0; border-color:#13ce66; border-radius:3px; max-width:540px;">
+                            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+                                <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                                    <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
+                                </svg>
+                                <span class="sib-form-message-panel__inner-text">
+                                    Your subscription has been successful.
+                                </span>
+                            </div>
+                        </div>
+                        <div></div>
+                        <div id="sib-container" class="sib-container--large sib-container--vertical" style="max-width:540px; text-align:center; background-color:rgba(255,255,255,1); border-width:1px; border-style:solid; border-color:#C0CCD9; border-radius:3px; direction:ltr">
+                            <form id="sib-form" method="POST" action="https://055f7059.sibforms.com/serve/MUIFAKYs4zjVms-mx1J3qGR-VsR-ugiqF4T6B6OH9ASgSbjJyLrXRbzew1coSn6EeJciOrMjsJwr3QUp1brq0L2aYq5goDV6Joc0bQTJkwdXiCZlnmU6yzoNUe3Ftl15fEvhm4gcLQ0L9zF4dUANTZ93FsjA_t6uJVQzBKfDV84sC1TH0eTH2o9cvonDTNeAbzp5ulBI5JooN6sUWQ==" data-type="subscription">
+                                <div style="padding: 8px 0;">
+                                    <div class="sib-input sib-form-block">
+                                        <div class="form__entry entry_block">
+                                            <div class="form__label-row ">
+                                                <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" for="EMAIL" data-required="*">Enter your email address to</label>
+                                                <div class="entry__field">
+                                                    <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="EMAIL" data-required="true" required />
+                                                </div>
+                                            </div>
+                                            <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
+                                            <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#8390A4; text-align: left ">
+                                                Provide your email address to subscribe. For e.g abc@xyz.com
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding: 8px 0;">
+                                    <div class="sib-form-block" style="text-align: left">
+                                        <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#FFFFFF; background-color:#3E4857; border-width:0px; border-radius:3px;" form="sib-form" type="submit">
+                                            <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                                                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                                            </svg>
+                                            SUBSCRIBE
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="text" name="email_address_check" value="" class="input--hidden">
+                                <input type="hidden" name="locale" value="en">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Brevo Form -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SCRIPTS (Brevo footer) ========== -->
+    <script>
+        window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+        window.LOCALE = 'en';
+        window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+        window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
+        window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+        window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
+        window.INVALID_DATE = "Please enter a valid date";
+        window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
+        window.translation = {
+            common: {
+                selectedList: '{quantity} list selected',
+                selectedLists: '{quantity} lists selected',
+                selectedOption: '{quantity} selected',
+                selectedOptions: '{quantity} selected',
+            }
+        };
+        var AUTOHIDE = Boolean(0);
+    </script>
+    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+    <!-- End Brevo footer -->
+
+    <!-- smooth scroll for Get Started button (optional) -->
+    <script>
+        (function() {
+            const btn = document.getElementById('getStartedBtn');
+            if (btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.getElementById('deeds-form');
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
