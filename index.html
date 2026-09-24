@@ -1,286 +1,566 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Direct Deeds South Africa</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts (Playfair Display for headings, Inter for body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deeds Direct · Online Deeds Office</title>
+  <!-- Brevo required fonts & styles (kept exactly as provided) -->
+  <style>
+    @font-face {
+      font-display: block;
+      font-family: Roboto;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 600;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 700;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+    }
+    :where(.sib-form-message-panel) { display: none; }
+    :where(.sib-form-message-panel .sib-notification__icon) { width: 20px; height: 20px; }
+    #sib-container input:-ms-input-placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+    #sib-container input::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+    #sib-container textarea::placeholder { font-family: Helvetica, sans-serif; text-align: left; color: #c0ccda; }
+    #sib-container a { text-decoration: underline; color: #2BB2FC; }
 
-    <!-- Tailwind Configuration for Custom Colors -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            dark: '#1e3a3a', // Dark teal for text/logo
-                            primary: '#3f7d7d', // Main button/accent color
-                            light: '#eef4f4', // Light background
-                            sage: '#8ba89e', // Muted green for decorative elements
-                            gold: '#c5a059' // Gold accent
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    /* ---------- GLOBAL & PAGE STYLES (deeds office theme) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <style>
-        /* Custom styles for smooth scrolling and specific visual effects */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
+    body {
+      font-family: 'Roboto', 'Helvetica', sans-serif;
+      background: #eef2f6;
+      line-height: 1.5;
+      color: #1e293b;
+      padding: 2rem 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        /* Subtle wave animation for background */
-        .wave-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(180deg, transparent 0%, rgba(63, 125, 125, 0.1) 100%);
-            z-index: -1;
-            border-top-left-radius: 50% 20%;
-            border-top-right-radius: 50% 20%;
-        }
-    </style>
+    .deeds-page {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 36px;
+      box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.25), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid #d9e2ef;
+    }
+
+    /* ----- HEADER (deeds office branding) ----- */
+    .deeds-header {
+      background: #0b1626;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 5px solid #c9a227;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-icon {
+      background: #c9a227;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #0b1626;
+      box-shadow: 0 4px 12px rgba(201, 162, 39, 0.4);
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: white;
+    }
+
+    .logo-text span {
+      color: #c9a227;
+      font-weight: 300;
+    }
+
+    .header-tagline {
+      font-size: 14px;
+      color: #9aa9bb;
+      border-left: 1px solid #334155;
+      padding-left: 18px;
+      margin-left: 6px;
+    }
+
+    /* ----- MAIN LAYOUT: two columns ----- */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: #ffffff;
+    }
+
+    /* LEFT: image / illustration side */
+    .image-panel {
+      background: #f7f9fc;
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #e2e8f0;
+      position: relative;
+      background-image: radial-gradient(circle at 10% 20%, rgba(201, 162, 39, 0.03) 0%, transparent 30%),
+                        repeating-linear-gradient(45deg, #f1f5f9 0px, #f1f5f9 2px, #ffffff 2px, #ffffff 6px);
+    }
+
+    .static-image {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
+      border: 2px solid #ffffff;
+      object-fit: cover;
+      aspect-ratio: 16 / 11;
+      background: #d9e2ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #4b5b6b;
+      font-size: 1.2rem;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    /* Using a pure CSS illustration (since no actual image file) — house + deed */
+    .static-image {
+      background: linear-gradient(145deg, #0b1626 0%, #1a2a41 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      color: white;
+      text-align: center;
+      border: 3px solid #c9a227;
+    }
+
+    .static-image .house-icon {
+      font-size: 5.5rem;
+      line-height: 1;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.4));
+      margin-bottom: 0.75rem;
+    }
+
+    .static-image .deed-icon {
+      font-size: 3.2rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .static-image h4 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #c9a227;
+      letter-spacing: 1px;
+      margin-top: 0.5rem;
+    }
+
+    .static-image p {
+      font-size: 0.9rem;
+      color: #b0c4de;
+      max-width: 260px;
+      margin-top: 0.4rem;
+    }
+
+    .trust-indicators {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #ffffffd8;
+      backdrop-filter: blur(2px);
+      padding: 1.5rem 1.8rem;
+      border-radius: 20px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+
+    .trust-indicators .item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      color: #1e2b3f;
+    }
+
+    .trust-indicators .item i {
+      font-style: normal;
+      font-size: 1.5rem;
+      width: 28px;
+      text-align: center;
+    }
+
+    .trust-indicators .item span {
+      font-size: 0.98rem;
+    }
+
+    /* RIGHT: registration form panel */
+    .form-panel {
+      padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-panel h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0b1626;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.5px;
+    }
+
+    .form-panel .subhead {
+      color: #4b5b6b;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid #c9a227;
+      padding-left: 1rem;
+      font-weight: 400;
+    }
+
+    /* ---- Brevo form overrides (to fit our layout) ---- */
+    .sib-form {
+      text-align: left !important;
+      background-color: transparent !important;
+      padding: 0 !important;
+    }
+
+    #sib-form-container {
+      max-width: 100% !important;
+    }
+
+    #sib-container {
+      max-width: 100% !important;
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+
+    #sib-form .entry__label {
+      font-weight: 600 !important;
+      color: #0b1626 !important;
+      font-size: 0.95rem !important;
+      margin-bottom: 8px !important;
+      display: block;
+    }
+
+    #sib-form .input {
+      border: 1.5px solid #d0dae8 !important;
+      border-radius: 14px !important;
+      padding: 1rem 1.2rem !important;
+      font-size: 1rem !important;
+      background: #f9fcff !important;
+      transition: 0.15s;
+      width: 100%;
+    }
+
+    #sib-form .input:focus {
+      border-color: #c9a227 !important;
+      outline: 3px solid rgba(201, 162, 39, 0.2) !important;
+      background: #ffffff !important;
+    }
+
+    #sib-form .sib-form-block__button {
+      background-color: #0b1626 !important;
+      color: white !important;
+      font-weight: 700 !important;
+      padding: 1rem 2rem !important;
+      border-radius: 50px !important;
+      font-size: 1.1rem !important;
+      letter-spacing: 0.5px;
+      transition: 0.15s;
+      border: 2px solid #c9a227 !important;
+      box-shadow: 0 8px 18px rgba(11, 22, 38, 0.25) !important;
+      width: auto !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    #sib-form .sib-form-block__button:hover {
+      background-color: #1e2e44 !important;
+      transform: scale(1.02);
+      box-shadow: 0 12px 22px rgba(11, 22, 38, 0.3) !important;
+    }
+
+    #sib-form .entry__specification {
+      color: #6b7b8c !important;
+      font-size: 0.8rem !important;
+      margin-top: 8px !important;
+      display: block;
+    }
+
+    /* hide error labels that are empty */
+    .entry__error--primary {
+      display: none;
+    }
+
+    /* Adjust Brevo error/success panels */
+    .sib-form-message-panel {
+      max-width: 100% !important;
+      margin-bottom: 1.5rem !important;
+      border-radius: 12px !important;
+      font-size: 0.95rem !important;
+    }
+
+    /* Add a custom small note */
+    .form-footer-note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #6b7b8c;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .form-footer-note .dot {
+      color: #c9a227;
+      font-weight: 700;
+    }
+
+    /* ----- bottom bar (extra deed office feel) ----- */
+    .deeds-footer {
+      background: #f1f5f9;
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #4b5b6b;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 4px solid #c9a227;
+    }
+
+    .deeds-footer .badge-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 950px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+      .image-panel {
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 2rem;
+      }
+      .form-panel {
+        padding: 2rem;
+      }
+      .static-image {
+        aspect-ratio: 16/9;
+      }
+      .deeds-header {
+        padding: 1.2rem 1.8rem;
+      }
+      .logo-text {
+        font-size: 22px;
+      }
+      .header-tagline {
+        display: none;
+      }
+      .deeds-footer {
+        padding: 1rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body { padding: 0.75rem; }
+      .deeds-page { border-radius: 24px; }
+      .form-panel { padding: 1.5rem; }
+      .image-panel { padding: 1.5rem; }
+      .form-panel h2 { font-size: 1.6rem; }
+      .trust-indicators { padding: 1.2rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
-<body class="bg-brand-light font-sans text-brand-dark overflow-x-hidden">
+<body>
 
-    <!-- Navigation Bar -->
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-                    <div class="text-brand-primary">
-                        <svg class="h-10 w-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                        </svg>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-serif font-bold text-xl leading-none text-brand-dark">Direct Deeds</span>
-                        <span class="text-[0.6rem] tracking-widest uppercase text-gray-500">South Africa</span>
-                    </div>
-                </div>
+<div class="deeds-page">
+  <!-- ========== HEADER ========== -->
+  <header class="deeds-header">
+    <div class="logo-group">
+      <div class="logo-icon">⚖️</div>
+      <div class="logo-text">DEEDS<span>DIRECT</span></div>
+    </div>
+    <div class="header-tagline">Online Deeds Office · Buyer–Seller Direct</div>
+  </header>
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
-                    <a href="#" class="hover:text-brand-primary transition">Buy a Home</a>
-                    <a href="#" class="hover:text-brand-primary transition">How It Works</a>
-                    <a href="#" class="hover:text-brand-primary transition">About Us</a>
-                    <a href="#" class="hover:text-brand-primary transition">Resources</a>
-                    <a href="#" class="hover:text-brand-primary transition">Contact</a>
-                </div>
+  <!-- ========== MAIN 2-COLUMN LAYOUT ========== -->
+  <div class="main-grid">
+    <!-- LEFT: static image + trust -->
+    <div class="image-panel">
+      <!-- Static visual / illustration representing deeds office & home transfer -->
+      <div class="static-image">
+        <div class="house-icon">🏡</div>
+        <div class="deed-icon">📜⚖️</div>
+        <h4>DEEDS OFFICE</h4>
+        <p>Buyer and seller connect directly — no agents, no delays.</p>
+      </div>
 
-                <!-- CTA Button (Desktop) -->
-                <div class="hidden md:block">
-                    <a href="#" class="bg-brand-primary hover:bg-brand-dark text-white px-6 py-2.5 rounded shadow-sm text-sm font-medium transition duration-300 flex items-center gap-2">
-                        Get Started <i class="fas fa-arrow-right text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-brand-primary focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
-            <div class="px-4 pt-2 pb-6 space-y-1">
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-gray-50">Buy a Home</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-gray-50">How It Works</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-gray-50">About Us</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-gray-50">Resources</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-primary hover:bg-gray-50">Contact</a>
-                <a href="#" class="block mt-4 text-center bg-brand-primary text-white px-6 py-3 rounded shadow-sm text-base font-medium">Get Started</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Hero Section -->
-    <main class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-12 pb-20">
-        <div class="wave-bg"></div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            <!-- Left Column: Image of Agent (Hidden on very small screens, shown on md) -->
-            <div class="hidden md:block lg:col-span-4 relative z-10">
-                <!-- Placeholder for the agent image -->
-                <div class="relative w-full h-full min-h-[400px] flex items-end justify-center">
-                    <!-- Using a placeholder image since we don't have the original asset -->
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                         alt="Real Estate Agent" 
-                         class="object-cover rounded-t-full shadow-xl mask-image-gradient h-[450px] w-full object-top"
-                         style="-webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%); mask-image: linear-gradient(to bottom, black 80%, transparent 100%);">
-                    
-                    <!-- Floating 3D House Model (CSS/HTML representation to match style) -->
-                    <div class="absolute bottom-10 -right-4 bg-white p-2 rounded-lg shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500">
-                        <div class="w-32 h-24 bg-gray-100 rounded flex items-center justify-center border border-gray-200">
-                            <i class="fas fa-home text-4xl text-brand-primary opacity-50"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Middle Column: Text Content -->
-            <div class="lg:col-span-4 flex flex-col justify-center text-center lg:text-left z-20">
-                <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl text-brand-dark leading-tight mb-6">
-                    Hundreds of <br> homes sold
-                </h1>
-                
-                <div class="w-16 h-1 bg-brand-sage mx-auto lg:mx-0 mb-6"></div>
-                
-                <p class="text-xl md:text-2xl text-gray-700 mb-8 font-light">
-                    Buyers saved millions in <br>
-                    <span class="text-brand-primary font-medium">Rands</span> in commissions
-                </p>
-
-                <!-- Trust Badges -->
-                <div class="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-gray-600">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-shield-alt text-brand-primary text-lg"></i>
-                        <span>Trusted & Secure</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="https://flagcdn.com/w20/za.png" alt="South Africa Flag" class="w-5 h-auto rounded-sm">
-                        <span>Proudly South African</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-leaf text-brand-sage text-lg"></i>
-                        <span>Smart. Simple. Savings.</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column: Property Grid -->
-            <div class="lg:col-span-4 z-10 w-full mt-10 lg:mt-0">
-                <div class="grid grid-cols-2 gap-4">
-                    
-                    <!-- Card 1 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="relative h-32 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1600596542815-e32870110025?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Modern Heights" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            <div class="absolute top-2 right-2 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1 shadow-sm">
-                                SOLD <i class="fas fa-check text-[8px]"></i>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-serif text-sm font-semibold text-brand-dark truncate">Modern Heights</h3>
-                            <p class="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-                                <i class="fas fa-map-marker-alt text-brand-primary"></i> Sandton
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="relative h-32 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Lakeview Retreat" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            <div class="absolute top-2 right-2 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1 shadow-sm">
-                                SOLD <i class="fas fa-check text-[8px]"></i>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-serif text-sm font-semibold text-brand-dark truncate">Lakeview Retreat</h3>
-                            <p class="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-                                <i class="fas fa-map-marker-alt text-brand-primary"></i> Pretoria East
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="relative h-32 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Summit View" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            <div class="absolute top-2 right-2 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1 shadow-sm">
-                                SOLD <i class="fas fa-check text-[8px]"></i>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-serif text-sm font-semibold text-brand-dark truncate">Summit View</h3>
-                            <p class="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-                                <i class="fas fa-map-marker-alt text-brand-primary"></i> Stellenbosch
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden group hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
-                        <div class="relative h-32 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Coastal Haven" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                            <div class="absolute top-2 right-2 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1 shadow-sm">
-                                SOLD <i class="fas fa-check text-[8px]"></i>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <h3 class="font-serif text-sm font-semibold text-brand-dark truncate">Coastal Haven</h3>
-                            <p class="text-[10px] text-gray-500 mt-1 flex items-center gap-1">
-                                <i class="fas fa-map-marker-alt text-brand-primary"></i> Ballito
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Agent Image (Visible only on small screens) -->
-         <div class="md:hidden mt-8 flex justify-center">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                 alt="Real Estate Agent" 
-                 class="h-64 w-64 object-cover rounded-full border-4 border-white shadow-lg">
-        </div>
-    </main>
-
-    <!-- Decorative Leaves (Bottom Left) -->
-    <div class="fixed bottom-0 left-0 pointer-events-none opacity-20 z-0">
-        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 190 C 10 150, 50 100, 100 80 C 90 120, 50 160, 10 190 Z" fill="#3f7d7d"/>
-            <path d="M30 190 C 40 160, 80 130, 120 120 C 100 150, 70 170, 30 190 Z" fill="#3f7d7d"/>
-        </svg>
+      <!-- trust indicators -->
+      <div class="trust-indicators">
+        <div class="item"><i>🔒</i> <span>Secure & POPIA compliant</span></div>
+        <div class="item"><i>⚡</i> <span>Direct buyer–seller matching</span></div>
+        <div class="item"><i>📄</i> <span>Digital deeds preparation</span></div>
+        <div class="item"><i>🏛️</i> <span>Deeds office ready documents</span></div>
+      </div>
     </div>
 
-    <!-- JavaScript for Mobile Menu Toggle -->
-    <script>
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
+    <!-- RIGHT: Brevo registration form (account creation) -->
+    <div class="form-panel">
+      <h2>Create your account</h2>
+      <div class="subhead">Start your property transfer journey today</div>
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
+      <!-- ===== BREVO FORM – EXACTLY AS PROVIDED (with minor container adjustments) ===== -->
+      <div class="sib-form" style="text-align: center; background-color: transparent;">
+        <div id="sib-form-container" class="sib-form-container">
+          <!-- error panel (kept) -->
+          <div id="error-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:8px; max-width:100%;">
+            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
+              </svg>
+              <span class="sib-form-message-panel__inner-text">
+                Your subscription could not be saved. Please try again.
+              </span>
+            </div>
+          </div>
+          <div></div>
+          <!-- success panel (kept) -->
+          <div id="success-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#085229; background-color:#e7faf0; border-color:#13ce66; border-radius:8px; max-width:100%;">
+            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
+              </svg>
+              <span class="sib-form-message-panel__inner-text">
+                Your subscription has been successful.
+              </span>
+            </div>
+          </div>
+          <div></div>
+          <!-- main form container -->
+          <div id="sib-container" class="sib-container--large sib-container--vertical" style="max-width:100%; text-align:center; background-color:transparent; border-width:0; border-radius:0; direction:ltr; padding:0;">
+            <form id="sib-form" method="POST" action="https://055f7059.sibforms.com/serve/MUIFAKYs4zjVms-mx1J3qGR-VsR-ugiqF4T6B6OH9ASgSbjJyLrXRbzew1coSn6EeJciOrMjsJwr3QUp1brq0L2aYq5goDV6Joc0bQTJkwdXiCZlnmU6yzoNUe3Ftl15fEvhm4gcLQ0L9zF4dUANTZ93FsjA_t6uJVQzBKfDV84sC1TH0eTH2o9cvonDTNeAbzp5ulBI5JooN6sUWQ==" data-type="subscription">
 
-        // Close menu when clicking a link
-        const links = menu.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
-            });
-        });
-    </script>
+              <div style="padding: 4px 0;">
+                <div class="sib-input sib-form-block">
+                  <div class="form__entry entry_block">
+                    <div class="form__label-row ">
+                      <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:15px; font-weight:700; text-align:left; color:#0b1626;" for="EMAIL" data-required="*">Enter your email address to create your deeds office account</label>
+                      <div class="entry__field">
+                        <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="you@example.com" data-required="true" required />
+                      </div>
+                    </div>
+                    <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
+                    <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#6b7b8c; text-align: left; margin-top:6px;">
+                      Provide your email address to subscribe. For e.g abc@xyz.com
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div style="padding: 8px 0 0 0;">
+                <div class="sib-form-block" style="text-align: left">
+                  <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#FFFFFF; background-color:#0b1626; border-width:0px; border-radius:50px;" form="sib-form" type="submit">
+                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" style="width:20px; height:20px; margin-right:4px;">
+                      <path fill="currentColor" d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                    </svg>
+                    CREATE ACCOUNT &nbsp;→
+                  </button>
+                </div>
+              </div>
+
+              <input type="text" name="email_address_check" value="" class="input--hidden">
+              <input type="hidden" name="locale" value="en">
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- ===== END BREVO FORM ===== -->
+
+      <div class="form-footer-note">
+        <span>🔐 We respect your privacy.</span>
+        <span class="dot">•</span>
+        <span>No spam, ever.</span>
+        <span class="dot">•</span>
+        <span>Unsubscribe anytime.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="deeds-footer">
+    <div>© 2025 DeedsDirect · Online Deeds Office for private property transfers.</div>
+    <div class="badge-row">
+      <span>🏛️ Deeds office ready</span>
+      <span>🤝 Direct buyer–seller</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ========== BREVO REQUIRED SCRIPTS (footer) ========== -->
+<script>
+  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+  window.LOCALE = 'en';
+  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
+  window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+  window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
+  window.INVALID_DATE = "Please enter a valid date";
+  window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
+  window.translation = {
+    common: {
+      selectedList: '{quantity} list selected',
+      selectedLists: '{quantity} lists selected',
+      selectedOption: '{quantity} selected',
+      selectedOptions: '{quantity} selected',
+    }
+  };
+  var AUTOHIDE = Boolean(0);
+</script>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<!-- End Brevo Form -->
+
 </body>
 </html>
