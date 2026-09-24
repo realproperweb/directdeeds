@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deeds Direct · Online Deeds Office</title>
+  <!-- Brevo form styles & fonts (embedded from provided code) -->
+  <style>
+    @font-face {
+      font-display: block;
+      font-family: Roboto;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/7529907e9eaf8ebb5220c5f9850e3811.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/normal/normal/25c678feafdc175a70922a116c9be3e7.woff) format("woff")
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 600;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/6e9caeeafb1f3491be3e32744bc30440.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/medium/normal/71501f0d8d5aa95960f6475d5487d4c2.woff) format("woff")
+    }
+    @font-face {
+      font-display: fallback;
+      font-family: Roboto;
+      font-weight: 700;
+      src: url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/3ef7cf158f310cf752d5ad08cd0e7e60.woff2) format("woff2"), url(https://assets.brevo.com/font/Roboto/Latin/bold/normal/ece3a1d82f18b60bcce0211725c476aa.woff) format("woff")
+    }
+    :where(.sib-form-message-panel) {
+      display: none;
+    }
+    :where(.sib-form-message-panel .sib-notification__icon) {
+      width: 20px;
+      height: 20px;
+    }
+    #sib-container input:-ms-input-placeholder {
+      font-family: Helvetica, sans-serif;
+      text-align: left;
+      color: #c0ccda;
+    }
+    #sib-container input::placeholder {
+      font-family: Helvetica, sans-serif;
+      text-align: left;
+      color: #c0ccda;
+    }
+    #sib-container textarea::placeholder {
+      font-family: Helvetica, sans-serif;
+      text-align: left;
+      color: #c0ccda;
+    }
+    #sib-container a {
+      text-decoration: underline;
+      color: #2BB2FC;
+    }
+
+    /* ---- custom deed office aesthetics ---- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', 'Helvetica', sans-serif;
+      background: #f1f5f9;
+      line-height: 1.5;
+      color: #1e293b;
+      padding: 2rem 1rem;
+    }
+
+    .deeds-wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.02);
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+    }
+
+    .deeds-header {
+      background: #0f1a2c;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-bottom: 4px solid #d4af37;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      background: #d4af37;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 700;
+      color: #0f1a2c;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    }
+
+    .logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: white;
+    }
+
+    .logo-text span {
+      color: #d4af37;
+      font-weight: 300;
+    }
+
+    .tagline {
+      font-size: 14px;
+      color: #94a3b8;
+      font-weight: 400;
+      border-left: 1px solid #334155;
+      padding-left: 18px;
+      margin-left: 8px;
+    }
+
+    .hero-section {
+      padding: 3rem 2.5rem 2rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-text {
+      flex: 1 1 320px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #0f1a2c;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text h1 i {
+      font-style: normal;
+      background: #d4af37;
+      padding: 0 8px;
+      color: #0f1a2c;
+      border-radius: 8px;
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #334155;
+      max-width: 500px;
+      margin-bottom: 1.8rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .badge {
+      background: #eef2ff;
+      color: #1e3a8a;
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #c7d2fe;
+    }
+
+    .badge i {
+      font-style: normal;
+      font-size: 1.1rem;
+    }
+
+    .hero-illustration {
+      flex: 0 1 280px;
+      background: #0f1a2c;
+      color: white;
+      border-radius: 24px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 15px 25px -8px rgba(0,0,0,0.25);
+      border-bottom: 5px solid #d4af37;
+      text-align: center;
+    }
+
+    .hero-illustration .deed-icon {
+      font-size: 4rem;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-illustration h3 {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #d4af37;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-illustration p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-top: 0.5rem;
+    }
+
+    /* ----- main registration form area (Brevo form) ----- */
+    .form-section {
+      padding: 0 2.5rem 2.5rem;
+    }
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px dashed #d4af37;
+      padding-bottom: 0.75rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #0f1a2c;
+    }
+
+    .form-header .step {
+      background: #d4af37;
+      color: #0f1a2c;
+      font-weight: 700;
+      border-radius: 30px;
+      padding: 0.2rem 1rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    /* Brevo container overrides */
+    .sib-form {
+      text-align: left;
+      background-color: transparent;
+      max-width: 100%;
+    }
+
+    #sib-container {
+      max-width: 100%;
+      background: #f9fbfd;
+      border: 1px solid #dbe3ef;
+      border-radius: 18px;
+      padding: 1.8rem 2rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    #sib-form .entry__label {
+      font-weight: 600 !important;
+      color: #0f1a2c !important;
+      font-size: 1rem !important;
+      margin-bottom: 4px;
+    }
+
+    #sib-form .input {
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      background: white;
+      transition: 0.15s;
+    }
+
+    #sib-form .input:focus {
+      border-color: #d4af37;
+      outline: 2px solid rgba(212, 175, 55, 0.3);
+    }
+
+    #sib-form .sib-form-block__button {
+      background-color: #0f1a2c !important;
+      color: white !important;
+      font-weight: 600 !important;
+      padding: 1rem 2rem !important;
+      border-radius: 40px !important;
+      font-size: 1.1rem !important;
+      letter-spacing: 0.5px;
+      transition: 0.15s;
+      border: 1px solid #d4af37 !important;
+      box-shadow: 0 6px 14px rgba(15, 26, 44, 0.25);
+      width: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    #sib-form .sib-form-block__button:hover {
+      background-color: #1e2b3f !important;
+      transform: scale(1.02);
+    }
+
+    #sib-form .entry__specification {
+      color: #64748b !important;
+      font-size: 0.8rem !important;
+      margin-top: 6px;
+    }
+
+    /* Additional trust elements */
+    .trust-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    .trust-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+    }
+
+    .trust-items span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trust-items i {
+      font-style: normal;
+      font-size: 1.3rem;
+    }
+
+    .footer-note {
+      background: #f1f5f9;
+      padding: 1.2rem 2.5rem;
+      font-size: 0.85rem;
+      color: #475569;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* Brevo hidden / error panels */
+    .sib-form-message-panel {
+      display: none;
+      max-width: 100% !important;
+      margin-bottom: 1.2rem;
+      border-radius: 10px;
+    }
+
+    .sib-form-message-panel__inner-text {
+      font-size: 0.95rem;
+    }
+
+    /* success / error colors already inline */
+
+    /* responsive */
+    @media (max-width: 700px) {
+      body { padding: 1rem 0.5rem; }
+      .deeds-header { padding: 1rem 1.5rem; }
+      .hero-section { padding: 2rem 1.5rem; }
+      .form-section { padding: 0 1.5rem 2rem; }
+      .hero-text h1 { font-size: 1.8rem; }
+      #sib-container { padding: 1.5rem; }
+      .logo-text { font-size: 20px; }
+      .tagline { display: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+</head>
+<body>
+  <div class="deeds-wrapper">
+    <!-- Deeds Office Header -->
+    <header class="deeds-header">
+      <div class="logo-area">
+        <div class="logo-icon">⚖️</div>
+        <div class="logo-text">DEEDS<span>DIRECT</span></div>
+      </div>
+      <div class="tagline">Online Deeds Office · Buyer–Seller Direct</div>
+    </header>
+
+    <!-- Hero / intro -->
+    <div class="hero-section">
+      <div class="hero-text">
+        <h1>Transfer property <i>directly</i><br>without the middlemen.</h1>
+        <p>Connect with buyers and sellers instantly. Create your free deeds office account and start the secure, transparent property transfer process today.</p>
+        <div class="badge-row">
+          <div class="badge"><i>🔒</i> Secure & encrypted</div>
+          <div class="badge"><i>⚡</i> Instant match</div>
+          <div class="badge"><i>📄</i> Digital deeds</div>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <div class="deed-icon">🏡📜</div>
+        <h3>DEEDS OFFICE</h3>
+        <p>Buyer ↔ Seller · no agents</p>
+      </div>
+    </div>
+
+    <!-- Registration form (using Brevo form markup) -->
+    <div class="form-section">
+      <div class="form-header">
+        <h2>Create your account</h2>
+        <div class="step">Step 1 of 1</div>
+      </div>
+
+      <!-- Brevo Form — exactly as provided (with all panels) -->
+      <div class="sib-form" style="text-align: center; background-color: transparent;">
+        <div id="sib-form-container" class="sib-form-container">
+          <!-- error message panel -->
+          <div id="error-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px; max-width:540px;">
+            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                <path d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-11.49 120h22.979c6.823 0 12.274 5.682 11.99 12.5l-7 168c-.268 6.428-5.556 11.5-11.99 11.5h-8.979c-6.433 0-11.722-5.073-11.99-11.5l-7-168c-.283-6.818 5.167-12.5 11.99-12.5zM256 340c-15.464 0-28 12.536-28 28s12.536 28 28 28 28-12.536 28-28-12.536-28-28-28z" />
+              </svg>
+              <span class="sib-form-message-panel__inner-text">
+                Your subscription could not be saved. Please try again.
+              </span>
+            </div>
+          </div>
+          <div></div>
+          <!-- success message panel -->
+          <div id="success-message" class="sib-form-message-panel" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#085229; background-color:#e7faf0; border-color:#13ce66; border-radius:3px; max-width:540px;">
+            <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+              <svg viewBox="0 0 512 512" class="sib-icon sib-notification__icon">
+                <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
+              </svg>
+              <span class="sib-form-message-panel__inner-text">
+                Your subscription has been successful.
+              </span>
+            </div>
+          </div>
+          <div></div>
+          <!-- main form container -->
+          <div id="sib-container" class="sib-container--large sib-container--vertical" style="max-width:100%; text-align:center; background-color:rgba(255,255,255,1); border-width:1px; border-style:solid; border-color:#C0CCD9; border-radius:16px; direction:ltr">
+            <form id="sib-form" method="POST" action="https://055f7059.sibforms.com/serve/MUIFAKYs4zjVms-mx1J3qGR-VsR-ugiqF4T6B6OH9ASgSbjJyLrXRbzew1coSn6EeJciOrMjsJwr3QUp1brq0L2aYq5goDV6Joc0bQTJkwdXiCZlnmU6yzoNUe3Ftl15fEvhm4gcLQ0L9zF4dUANTZ93FsjA_t6uJVQzBKfDV84sC1TH0eTH2o9cvonDTNeAbzp5ulBI5JooN6sUWQ==" data-type="subscription">
+              <div style="padding: 8px 0;">
+                <div class="sib-input sib-form-block">
+                  <div class="form__entry entry_block">
+                    <div class="form__label-row ">
+                      <label class="entry__label" style="font-weight: 700; text-align: left; font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#3c4858;" for="EMAIL" data-required="*">Enter your email address to create your deeds office account</label>
+                      <div class="entry__field">
+                        <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" value="" placeholder="EMAIL" data-required="true" required />
+                      </div>
+                    </div>
+                    <label class="entry__error entry__error--primary" style="font-family:Helvetica, sans-serif; font-size:16px; text-align:left; color:#661d1d; background-color:#ffeded; border-color:#ff4949; border-radius:3px;"></label>
+                    <label class="entry__specification" style="font-family:Helvetica, sans-serif; font-size:12px; text-align:left; color:#8390A4; text-align: left ">
+                      Provide your email address to subscribe. For e.g abc@xyz.com
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 8px 0;">
+                <div class="sib-form-block" style="text-align: left">
+                  <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-family:Helvetica, sans-serif; font-size:16px; font-weight:700; text-align:left; color:#FFFFFF; background-color:#3E4857; border-width:0px; border-radius:40px;" form="sib-form" type="submit">
+                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                      <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
+                    </svg>
+                    CREATE ACCOUNT &nbsp;→
+                  </button>
+                </div>
+              </div>
+              <input type="text" name="email_address_check" value="" class="input--hidden">
+              <input type="hidden" name="locale" value="en">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust / value props -->
+      <div class="trust-bar">
+        <div class="trust-items">
+          <span><i>🛡️</i> POPIA compliant</span>
+          <span><i>🏛️</i> Deeds office ready</span>
+          <span><i>🤝</i> Direct buyer–seller</span>
+        </div>
+        <div style="font-weight: 500; color: #0f1a2c;">⚡ No fees to register</div>
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div class="footer-note">
+      © 2025 DeedsDirect · Online Deeds Office for private property transfers. <br>
+      By creating an account you agree to our terms of use and privacy policy.
+    </div>
+  </div>
+
+  <!-- Brevo required scripts (footer) -->
+  <script>
+    window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
+    window.LOCALE = 'en';
+    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
+    window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
+    window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
+    window.INVALID_DATE = "Please enter a valid date";
+    window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
+    window.translation = {
+      common: {
+        selectedList: '{quantity} list selected',
+        selectedLists: '{quantity} lists selected',
+        selectedOption: '{quantity} selected',
+        selectedOptions: '{quantity} selected',
+      }
+    };
+    var AUTOHIDE = Boolean(0);
+  </script>
+  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+</body>
+</html>
